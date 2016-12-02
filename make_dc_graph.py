@@ -6,6 +6,15 @@ x = 0
 #Add Stations
 line = []
 stationnames = []
+
+posx={}
+
+with open('station_locations.csv', 'rb') as csvfile:
+    positions = csv.reader(csvfile, delimiter=',')
+    for row in positions:
+		posx[row[0]] = [int(row[1]),int(row[2])*-1]
+print(posx)
+
 with open('connectivity.csv', 'rb') as csvfile:
 		connectreader = csv.reader(csvfile, delimiter=',')
 		#Parse Each row in the files
@@ -62,18 +71,17 @@ for x in range(0, len(dcmetro.nodes())):
 
 
  
-for y in range(0, len(list_of_connections)):
-#	rounded_traversal = list_of_connections
-#	print rounded_traversal[y]
-	print int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
-	print list_of_connections[y][0]
-	print list_of_connections[y][1]
-	edge_labels[list_of_connections[y][0]][list_of_connections[y][1]] = int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
+# for y in range(0, len(list_of_connections)):
+# #	rounded_traversal = list_of_connections
+# #	print rounded_traversal[y]
+# 	print int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
+# 	print list_of_connections[y][0]
+# 	print list_of_connections[y][1]
+# 	edge_labels[list_of_connections[y][0]][list_of_connections[y][1]] = int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
 
 
 
 
-posx = nx.fruchterman_reingold_layout(dcmetro, k = .15)
 # posx={}
 
 # for x in range(0, len(stationnames[1::])):
