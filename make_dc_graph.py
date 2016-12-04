@@ -66,23 +66,19 @@ with open('2012MayAMPeak.csv', 'rb') as csvfile:
 
 
 
-edge_labels = nx.get_edge_attributes(dcmetro, 'traversal')
-
+#edge_labels = nx.get_edge_attributes(dcmetro, 'traversal')
+edges,traversal = zip(*nx.get_edge_attributes(dcmetro,'traversal').items())
 
 node_labels = {}
-#edge_labels = {}
-for x in range(0, len(dcmetro.nodes())):
-	 node_labels[stationnames[x+1]] = dcmetro.node[stationnames[x+1]]['source']
-
 
 
  
-for y in range(0, len(list_of_connections)):
+#for y in range(0, len(list_of_connections)):
 	# print dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']
 	# print "\n"
 
- 	edge_labels[(list_of_connections[y][0],list_of_connections[y][1])] = str(dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal']))
- 	print dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal'])
+ 	#edge_labels[(list_of_connections[y][0],list_of_connections[y][1])] = str(dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal']))
+ 	#print dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal'])
 
 
  #	rounded_traversal = list_of_connections
@@ -91,14 +87,11 @@ for y in range(0, len(list_of_connections)):
 	# print list_of_connections[y][0]
 	# print list_of_connections[y][1]
 
-
 # posx={}
-
 # for x in range(0, len(stationnames[1::])):
 # 	posx[stationnames[x+1]] = (0,0)
-nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = edge_labels)
-# nx.draw_networkx(dcmetro, pos = posx, with_labels = False, edge_labels = edge_labels, node_size = 5, arrows = True)
-# nx.draw_networkx_labels(dcmetro, pos = posx, edge_labels=edge_labels, font_size = 10)
+#nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = nx.get_edge_attributes(dcmetro,'traversal'))
+nx.draw_networkx(dcmetro, pos = posx, with_labels = False, node_size = 1, arrows = False, edge_color=traversal,width=4,edge_cmap=plt.cm.hot)
 
 #nx.draw_networkx_edge_labels(dcmetro, pos=posx)
 #for z in range(0, len(posx)):
