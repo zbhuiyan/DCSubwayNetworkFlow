@@ -13,7 +13,7 @@ with open('station_locations.csv', 'rb') as csvfile:
     positions = csv.reader(csvfile, delimiter=',')
     for row in positions:
 		posx[row[0]] = [int(row[1]),int(row[2])*-1]
-print(posx)
+# print(posx)
 
 with open('connectivity.csv', 'rb') as csvfile:
 		connectreader = csv.reader(csvfile, delimiter=',')
@@ -66,7 +66,8 @@ with open('2012MayAMPeak.csv', 'rb') as csvfile:
 
 
 
-edge_labels= nx.get_edge_attributes(dcmetro, 'traversal')
+edge_labels = nx.get_edge_attributes(dcmetro, 'traversal')
+
 
 node_labels = {}
 #edge_labels = {}
@@ -76,26 +77,29 @@ for x in range(0, len(dcmetro.nodes())):
 
 
  
-#for y in range(0, len(list_of_connections)):
-#	print dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']
- 	#edge_labels[list_of_connections[y][0]][list_of_connections[y][1]] = int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
+for y in range(0, len(list_of_connections)):
+	# print dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']
+	# print "\n"
+
+ 	edge_labels[(list_of_connections[y][0],list_of_connections[y][1])] = str(dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal']))
+ 	print dcmetro.get_edge_data(list_of_connections[y][0], list_of_connections[y][1], {'traversal':0}['traversal'])
+
 
  #	rounded_traversal = list_of_connections
-# #	print rounded_traversal[y]
-# 	print int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
-# 	print list_of_connections[y][0]
-# 	print list_of_connections[y][1]
-
-
+# 	print rounded_traversal[y]
+	# print type(int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']))
+	# print list_of_connections[y][0]
+	# print list_of_connections[y][1]
 
 
 # posx={}
 
 # for x in range(0, len(stationnames[1::])):
 # 	posx[stationnames[x+1]] = (0,0)
+nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = edge_labels)
+# nx.draw_networkx(dcmetro, pos = posx, with_labels = False, edge_labels = edge_labels, node_size = 5, arrows = True)
+# nx.draw_networkx_labels(dcmetro, pos = posx, edge_labels=edge_labels, font_size = 10)
 
-nx.draw_networkx_labels(dcmetro, pos = posx, labels = node_labels, edge_labels=edge_labels, font_size = 20)
-nx.draw_networkx(dcmetro, pos = posx, with_labels = False, node_size = 5, arrows = True)
 #nx.draw_networkx_edge_labels(dcmetro, pos=posx)
 #for z in range(0, len(posx)):
 #	x,y = posx[stationnames[z+1]]
