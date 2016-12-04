@@ -55,29 +55,36 @@ with open('2012MayAMPeak.csv', 'rb') as csvfile:
 			p = nx.shortest_path(dcmetro, source = line[x][0], target= line[x][1])
 			dcmetro.node[line[x][0]]['source'] += float(line[x][2])
 			dcmetro.node[line[x][1]]['sink'] += float(line[x][2])
-#			print p
+#			P is the shortest path -> [source .. .. .. target] if The source == Target, then shortest path p = [source]
+			#Entering and Exiting same station
 			if (len(p) == 1):
 				dcmetro[p[0]][p[0]][0]['traversal'] += float(line[x][2])
+			#Parse through each node in shortest path
 			for y in range(0, len(p)-1):
+				#P is the shortest path:
 				dcmetro[p[y]][p[y+1]][0]['traversal'] += float(line[x][2])
 
 
 
+edge_labels= nx.get_edge_attributes(dcmetro, 'traversal')
+
 node_labels = {}
-edge_labels = {}
+#edge_labels = {}
 for x in range(0, len(dcmetro.nodes())):
 	 node_labels[stationnames[x+1]] = dcmetro.node[stationnames[x+1]]['source']
 
 
 
  
-# for y in range(0, len(list_of_connections)):
-# #	rounded_traversal = list_of_connections
+#for y in range(0, len(list_of_connections)):
+#	print dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']
+ 	#edge_labels[list_of_connections[y][0]][list_of_connections[y][1]] = int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
+
+ #	rounded_traversal = list_of_connections
 # #	print rounded_traversal[y]
 # 	print int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
 # 	print list_of_connections[y][0]
 # 	print list_of_connections[y][1]
-# 	edge_labels[list_of_connections[y][0]][list_of_connections[y][1]] = int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal'])
 
 
 
@@ -87,14 +94,10 @@ for x in range(0, len(dcmetro.nodes())):
 # for x in range(0, len(stationnames[1::])):
 # 	posx[stationnames[x+1]] = (0,0)
 
-nx.draw_networkx_labels(dcmetro, pos = posx, labels = node_labels, edge_labels=edge_labels, font_size = 10)
-nx.draw_networkx(dcmetro, pos = posx, with_labels = True)
+nx.draw_networkx_labels(dcmetro, pos = posx, labels = node_labels, edge_labels=edge_labels, font_size = 20)
+nx.draw_networkx(dcmetro, pos = posx, with_labels = False, node_size = 5, arrows = True)
 #nx.draw_networkx_edge_labels(dcmetro, pos=posx)
 #for z in range(0, len(posx)):
 #	x,y = posx[stationnames[z+1]]
-#	plt.text(x-.025,y+.025, s=str(node_labels[stationnames[z+1]]))
-
-
-
-
+#plt.text(x-.025,y+.025, s=str(node_labels[stationnames[z+1]]))
 plt.show()
