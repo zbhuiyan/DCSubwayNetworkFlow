@@ -66,13 +66,29 @@ with open('2012MayAMPeak.csv', 'rb') as csvfile:
 
 
 
-#edge_labels = nx.get_edge_attributes(dcmetro, 'traversal')
+edge_labels = nx.get_edge_attributes(dcmetro, 'traversal')
 edges,traversal = zip(*nx.get_edge_attributes(dcmetro,'traversal').items())
 
 node_labels = {}
 
+# print edge_labels
 
- 
+##########################################
+############## This code removes the extra 0 in the tuple. Why does it need to be there in the first place????
+newTuple = ()
+edges = {}
+print traversal
+
+for key, value in edge_labels.items():
+  newTuple = (key[0], key[1])
+  # print newTuple
+  edges[newTuple] = value
+
+edge_labels = edges
+print edge_labels
+########################################### 
+
+
 #for y in range(0, len(list_of_connections)):
 	# print dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']
 	# print "\n"
@@ -86,11 +102,10 @@ node_labels = {}
 	# print type(int(dcmetro[list_of_connections[y][0]][list_of_connections[y][1]][0]['traversal']))
 	# print list_of_connections[y][0]
 	# print list_of_connections[y][1]
-
-# posx={}
-# for x in range(0, len(stationnames[1::])):
-# 	posx[stationnames[x+1]] = (0,0)
-#nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = nx.get_edge_attributes(dcmetro,'traversal'))
+pos={}
+for x in range(0, len(stationnames[1::])):
+	pos[stationnames[x+1]] = (0,0)
+nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = edge_labels)
 nx.draw_networkx(dcmetro, pos = posx, with_labels = False, node_size = 1, arrows = False, edge_color=traversal,width=4,edge_cmap=plt.cm.hot)
 
 #nx.draw_networkx_edge_labels(dcmetro, pos=posx)
