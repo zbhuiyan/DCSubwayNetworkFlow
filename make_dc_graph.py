@@ -107,7 +107,7 @@ for x in range(0, len(stationnames[1::])):
 	pos[stationnames[x+1]] = (0,0)
 nx.draw_networkx_edge_labels(dcmetro, pos = posx, edge_labels = edge_labels)
 nx.draw_networkx(dcmetro, pos = posx, with_labels = False, node_size = 1, arrows = False, edge_color=traversal,width=4,edge_cmap=plt.cm.hot)
-
+nx.write_gml(dcmetro, output path string here!!!, stringizer=None)
 #nx.draw_networkx_edge_labels(dcmetro, pos=posx)
 #for z in range(0, len(posx)):
 #	x,y = posx[stationnames[z+1]]
